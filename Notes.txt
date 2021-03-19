@@ -1,0 +1,12 @@
+﻿First Milestone Properties:
+- Take 1 argument when run
+- Argument should be single_<piece>
+- should print out a board with the single piece on the board
+- Take 2 arguments when run
+- argument 1 should be single_<piece>, argument 2 should be position
+- print out board with sing piece on the board
+
+- needed: way to convert from bitboard to 2D array representation and back
+
+Misc.:
+- Boost.Python to eventually wrap the engine in python and serve over django app

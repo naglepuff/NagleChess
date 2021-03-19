@@ -1,7 +1,18 @@
 #include <iostream>
+#include "include/game_state.h"
 using namespace std;
 
+void TestPrint();
+
 int main() {
-    cout << "Hello World!" << endl;
+    // ad hoc testing for now
+    GameState state = GameState();
+    
+    cout << state.white.pawns << endl; // should be 0
+
+    state.RepositionFromArray(single_pawn);
+
+    cout << state.white.pawns <<endl; // should be 32
+
     return 0;
 }

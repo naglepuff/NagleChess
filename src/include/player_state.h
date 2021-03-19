@@ -1,7 +1,6 @@
 // player state defs
 
 #include "./starting_values.h"
-using namespace std;
 
 enum PieceType {
     Pawn,
@@ -19,9 +18,13 @@ class PlayerState {
         PlayerState(bool isWhite) {
             pawns = isWhite ? white_pawns : black_pawns;
             rooks = isWhite ? white_rooks : black_rooks;
+            knights = isWhite ? white_knights : black_knights;
             bishops = isWhite ? white_bishops : black_bishops;
             queen = isWhite ? white_queen : black_queen;
             king = isWhite ? white_king : black_king;
+        }
+        PlayerState() {
+            pawns = rooks = bishops = queen = knights = king = 0;
         }
     // bitboards for pieces
         uint64_t pawns;
@@ -35,8 +38,9 @@ class PlayerState {
         bool hasCastled;
         bool check;
     // functions
-        bool canCastle();
-        int currentScore();
+        bool CanCastle();
+        int CurrentScore();
+        void PlacePiece(PieceType pieceType, int numShifts);
 
         
 
