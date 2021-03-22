@@ -1,5 +1,5 @@
 // player state business logic
-#include "include/player_state.h"
+#include "../include/PlayerState.h"
 
 void PlayerState::PlacePiece(PieceType type, int numShifts) {
 

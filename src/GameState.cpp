@@ -1,4 +1,4 @@
-#include "include/game_state.h"
+#include "../include/GameState.h"
 using namespace std;
 // game state business logic
 

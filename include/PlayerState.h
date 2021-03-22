@@ -1,6 +1,6 @@
 // player state defs
 
-#include "./starting_values.h"
+#include "./StartingValues.h"
 
 enum PieceType {
     Pawn,

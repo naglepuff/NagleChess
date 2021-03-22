@@ -1,6 +1,6 @@
 // game state defs
 
-#include "./player_state.h"
+#include "./PlayerState.h"
 #include <vector>
 
 enum GamePhase {
