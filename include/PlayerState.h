@@ -1,14 +1,13 @@
 // player state defs
 
-#include "./StartingValues.h"
+//#include "./StartingValues.h"
+#include "./Piece.h"
 
-enum PieceType {
-    Pawn,
-    Bishop,
-    Knight,
-    Rook,
-    Queen,
-    King
+
+enum PlayerColor {
+    White,
+    Black,
+    Player_None 
 };
 
 class PlayerState {
@@ -16,6 +15,7 @@ class PlayerState {
     public:
     // constructor and destructor
         PlayerState(bool isWhite) {
+            color = isWhite ? PlayerColor::White : PlayerColor::Black;
             pawns = isWhite ? white_pawns : black_pawns;
             rooks = isWhite ? white_rooks : black_rooks;
             knights = isWhite ? white_knights : black_knights;
@@ -37,10 +37,12 @@ class PlayerState {
         bool kingMoved;
         bool hasCastled;
         bool check;
+        PlayerColor color;
     // functions
         bool CanCastle();
         int CurrentScore();
         void PlacePiece(PieceType pieceType, int numShifts);
+        bool AmIOnSquare(uint64_t square);
 
         
 

@@ -1,0 +1,3 @@
+add_executable(GameStateAdHocTests GameStateAdHocTests.cpp)
+
+target_link_libraries(GameStateAdHocTests LINK_PUBLIC GameState)

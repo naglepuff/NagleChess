@@ -26,4 +26,8 @@ class GameState {
         void RepositionFromArray(std::vector<std::vector<char>> board);
         void PrintBoard();
         void ClearBoard();
+    private:
+        std::vector<char> GetOneRow(int rowNum);
+        PlayerColor GetPlayerOnSquare(uint64_t square);
+        PieceType GetPieceOnSquare(uint64_t square);
 };

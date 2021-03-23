@@ -30,3 +30,8 @@ void PlayerState::PlacePiece(PieceType type, int numShifts) {
     // check for valid game state?
 
 }
+
+bool PlayerState::AmIOnSquare(uint64_t square) {
+    uint64_t squaresIAmOn = pawns + bishops + knights + rooks + queen + king;
+    return square & squaresIAmOn == square; // bitwise and
+}

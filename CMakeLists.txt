@@ -6,3 +6,4 @@ project(naglechess VERSION 1.0
 
 add_subdirectory(src)
 add_subdirectory(app)
+add_subdirectory(tests)
