@@ -82,7 +82,7 @@ vector<char> GameState::GetOneRow(int rowNum) {
     for(int i = startVal; i >= endVal; i--) {
         
         char currentSquarePiece = ' ';
-        uint64_t currentSquare = 1 << i;
+        uint64_t currentSquare = (uint64_t) 1 << i;
 
         PieceType pieceType = GetPieceOnSquare(currentSquare);
         PlayerColor playerOnSquare = GetPlayerOnSquare(currentSquare);
@@ -140,4 +140,32 @@ PieceType GameState::GetPieceOnSquare(uint64_t square) {
     if ((white.rooks + black.rooks) & square) {return PieceType::Rook;}
     if ((white.queen + black.queen) & square) {return PieceType::Queen;}
     if ((white.king + black.king) & square) {return PieceType::King;}
+
+    return PieceType::Piece_None;
+}
+
+string GameState::ToString() {
+
+    string straightLine = "  ---------------------------------\n";
+    string boardString = straightLine;
+
+    vector<vector<char>> array = GetArrayRepresentation();
+    
+    for(int i = 0; i < (int) array.size(); i++) {
+        
+        boardString = boardString + to_string(8 - i) + " " + GetRowString(array[i]);
+        boardString = boardString + straightLine;
+    }
+    boardString = boardString + "    A   B   C   D   E   F   G   H\n";
+    return boardString;
+}
+
+string GameState::GetRowString(vector<char> row) {
+    
+    string rowString = "|";
+
+    for(int i = 0; i < (int) row.size(); i++) {
+        rowString = rowString + " " + row[i] + " |";
+    }
+    return rowString + "\n";
 }

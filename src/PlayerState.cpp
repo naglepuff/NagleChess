@@ -1,5 +1,6 @@
 // player state business logic
 #include "../include/PlayerState.h"
+using namespace std;
 
 void PlayerState::PlacePiece(PieceType type, int numShifts) {
 
@@ -33,5 +34,5 @@ void PlayerState::PlacePiece(PieceType type, int numShifts) {
 
 bool PlayerState::AmIOnSquare(uint64_t square) {
     uint64_t squaresIAmOn = pawns + bishops + knights + rooks + queen + king;
-    return square & squaresIAmOn == square; // bitwise and
+    return (square & squaresIAmOn) == square; // bitwise and
 }

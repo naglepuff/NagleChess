@@ -8,7 +8,8 @@ void PrintRow(vector<char> row);
 int main() {
     // ad hoc testing for now
     GameState state = GameState();
-    PrintBoard(state);
+    // state.RepositionFromArray(single_pawn);
+    cout << state.ToString();
 
     return 0;
 }

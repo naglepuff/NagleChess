@@ -2,6 +2,7 @@
 
 #include "./PlayerState.h"
 #include <vector>
+#include <string>
 
 enum GamePhase {
     Opening,
@@ -15,6 +16,8 @@ class GameState {
         // constructor and destructor
         GameState() {
             phase = GamePhase::Opening;
+            white = PlayerState(true);
+            black = PlayerState(false);
         };
         // properties
         GamePhase phase;
@@ -26,8 +29,10 @@ class GameState {
         void RepositionFromArray(std::vector<std::vector<char>> board);
         void PrintBoard();
         void ClearBoard();
-    private:
+        std::string ToString();
+    //private: // nothing actually private for now
         std::vector<char> GetOneRow(int rowNum);
         PlayerColor GetPlayerOnSquare(uint64_t square);
         PieceType GetPieceOnSquare(uint64_t square);
+        std::string GetRowString(std::vector<char> row);
 };

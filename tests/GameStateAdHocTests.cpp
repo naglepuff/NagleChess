@@ -9,12 +9,19 @@
 using namespace std;
 
 bool RepositionFromArray_AdHocTest1();
+bool GetPlayerOnSquare_AdHocTest1();
+bool GetPieceOnSquare_AdHocTest1();
+bool GetPieceOnSquare_AdHocTest2();
+vector<vector<char>> CreateSinglePieceBoard(PieceType type);
 
 int main() {
 
     string p = "PASS";
     string f = "FAIL";
     cout << "Result for RepositionFromArray_AdHocTest1: " << (RepositionFromArray_AdHocTest1() ? p : f) << endl;
+    cout << "Result for GetPlayerOnSquare_AdHocTest1: " << (GetPlayerOnSquare_AdHocTest1() ? p : f) << endl;
+    cout << "Result for GetPieceOnSquare_AdHocTest1(): " << (GetPieceOnSquare_AdHocTest1() ? p : f) << endl;
+    cout << "Result for GetPieceOnSquare_AdHocTest2(): " << (GetPieceOnSquare_AdHocTest2() ? p : f) << endl;
     return 0;
 }
 
@@ -28,3 +35,64 @@ bool RepositionFromArray_AdHocTest1() {
     state.RepositionFromArray(single_pawn);
     return state.white.pawns == 4096;
 }
+
+bool GetPlayerOnSquare_AdHocTest1() {
+
+    GameState state = GameState();
+    state.RepositionFromArray(single_pawn);
+    return state.GetPlayerOnSquare(4096) == PlayerColor::White;
+}
+
+bool GetPieceOnSquare_AdHocTest1() {
+    GameState state = GameState();
+    state.RepositionFromArray(single_pawn);
+    return state.GetPieceOnSquare(1 << 12) == PieceType::Pawn;
+}
+
+bool GetPieceOnSquare_AdHocTest2() {
+    GameState state = GameState();
+    state.RepositionFromArray(single_pawn);
+    return state.GetPieceOnSquare((uint64_t) 1 << 44) == PieceType::Piece_None;
+}
+
+vector<vector<char>> CreateSinglePieceBoard(PieceType type) {
+    char pieceChar;
+
+    switch(type) {
+        case PieceType::Pawn:
+            // eventually black pawns could be useful here too
+            pieceChar = 'P';
+            break;
+        case PieceType::Bishop:
+            pieceChar = 'B';
+            break;
+        case PieceType::Knight:
+            pieceChar = 'N';
+            break;
+        case PieceType::Rook:
+            pieceChar = 'R';
+            break;
+        case PieceType::Queen:
+            pieceChar = 'Q';
+            break;
+        case PieceType::King:
+            pieceChar = 'K';
+            break;
+        default:
+            pieceChar = ' ';
+            break;
+    }
+
+    vector<vector<char>> array = {
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
+        {' ', ' ', ' ', pieceChar, ' ', ' ', ' ', ' '}, 
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+    };
+    return array;
+}
+
