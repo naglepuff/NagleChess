@@ -2,6 +2,19 @@
 #include "../include/PlayerState.h"
 using namespace std;
 
+void PlayerState::Clear() {
+    /**
+     * Clear all bitboards representing this player (set to 0).
+     **/ 
+
+    pawns = 0;
+    bishops = 0;
+    knights = 0;
+    rooks = 0;
+    queen = 0;
+    king = 0;
+}
+
 void PlayerState::PlacePiece(PieceType type, int numShifts) {
 
     uint64_t newPiece = 1;

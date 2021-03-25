@@ -42,6 +42,7 @@ class PlayerState {
         bool CanCastle();
         int CurrentScore();
         void PlacePiece(PieceType pieceType, int numShifts);
+        void Clear();
         bool AmIOnSquare(uint64_t square);
 
         

@@ -34,3 +34,22 @@ const std::vector<std::vector<char>> single_pawn = {
     {' ', ' ', ' ', 'P', ' ', ' ', ' ', ' '}, 
     {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
 };
+
+// Directions for bit shift right
+const int     NORTH = 8;
+const int      WEST = 1;
+const int NORTHEAST = 7;
+const int NORTHWEST = 9;
+
+// Directions for bit shift south
+const int     SOUTH = 8;
+const int      EAST = 1;
+const int SOUTHEAST = 9;
+const int SOUTHWEST = 7;
+
+// Edges of the board
+const uint64_t TOP =    0b1111111100000000000000000000000000000000000000000000000000000000;
+const uint64_t BOTTOM = 0b0000000000000000000000000000000000000000000000000000000011111111;
+const uint64_t RIGHT  = 0b0000000100000001000000010000000100000001000000010000000100000001;
+const uint64_t LEFT   = 0b1000000010000000100000001000000010000000100000001000000010000000;
+

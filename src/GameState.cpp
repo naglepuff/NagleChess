@@ -4,7 +4,9 @@ using namespace std;
 
 void GameState::RepositionFromArray(vector<vector<char>> board) {
 
-    // clearBoard function could be useful...
+    // clearBoard function could be useful... for now just clear each player
+    white.Clear();
+    black.Clear();
 
     for(int i = 0; i < (int) board.size(); i++) {
         for(int j = 0; j < (int) board[i].size(); j++) {
