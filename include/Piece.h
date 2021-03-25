@@ -1,14 +1,6 @@
 #include "./StartingValues.h"
 
-enum PieceType {
-    Pawn,
-    Bishop,
-    Knight,
-    Rook,
-    Queen,
-    King,
-    Piece_None
-};
+
 
 class Piece {
     protected:

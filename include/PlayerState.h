@@ -3,13 +3,6 @@
 //#include "./StartingValues.h"
 #include "./Piece.h"
 
-
-enum PlayerColor {
-    White,
-    Black,
-    Player_None 
-};
-
 class PlayerState {
 
     public:
@@ -44,6 +37,7 @@ class PlayerState {
         void PlacePiece(PieceType pieceType, int numShifts);
         void Clear();
         bool AmIOnSquare(uint64_t square);
+    // move generation
 
         
 

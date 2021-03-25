@@ -6,6 +6,22 @@
 #include <vector>
 #include <iostream>
 
+enum PieceType {
+    Pawn,
+    Bishop,
+    Knight,
+    Rook,
+    Queen,
+    King,
+    Piece_None
+};
+
+enum PlayerColor {
+    White,
+    Black,
+    Player_None 
+};
+
 const uint64_t white_pawns = 0b0000000000000000000000000000000000000000000000001111111100000000;
 const uint64_t black_pawns = 0b0000000011111111000000000000000000000000000000000000000000000000;
 
