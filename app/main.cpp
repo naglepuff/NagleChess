@@ -11,6 +11,10 @@ int main() {
     // state.RepositionFromArray(single_pawn);
     cout << state.ToString();
 
+    Fen fen = Fen(FEN_START);
+    state.RepositionFromFen(fen);
+    cout << state.ToString();
+
     return 0;
 }
 

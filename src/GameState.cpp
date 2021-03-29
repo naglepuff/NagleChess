@@ -2,6 +2,10 @@
 using namespace std;
 // game state business logic
 
+
+/*******************************************************************
+ * Functions to convert between BB, vector, and FEN representations
+ ******************************************************************/
 void GameState::RepositionFromArray(vector<vector<char>> board) {
 
     // clearBoard function could be useful... for now just clear each player
@@ -56,6 +60,73 @@ void GameState::RepositionFromArray(vector<vector<char>> board) {
                     break;
             }
         }
+    }
+}
+
+void GameState::RepositionFromFen(Fen fen) {
+
+    ClearBoard();
+    BuildBitboardsFromFenString(fen.piecePlacement);
+}
+
+void GameState::BuildBitboardsFromFenString(string pieceString) {
+    /** 
+     * For now, assume that the piece string is VALID.
+    **/
+    uint64_t currentBit = (uint64_t) 1 << 63;
+    for(int i = 0; i < pieceString.size(); i++) {
+
+        char currentChar = pieceString[i];
+
+        if (currentChar - '0' > 0 && currentChar - '0' <= 8) {
+            currentBit = currentBit >> (currentChar - '0');
+        } else {
+            switch (currentChar) {
+                case 'P':
+                    white.pawns |= currentBit;
+                    break;
+                case 'p':
+                    black.pawns |= currentBit;
+                    break;
+                case 'B':
+                    white.bishops |= currentBit;
+                    break;
+                case 'b':
+                    black.bishops |= currentBit;
+                    break;
+                case 'N':
+                    white.knights |= currentBit;
+                    break;
+                case 'n':
+                    black.knights |= currentBit;
+                    break;
+                case 'R':
+                    white.rooks |= currentBit;
+                    break;
+                case 'r':
+                    black.rooks |= currentBit;
+                    break;
+                case 'Q':
+                    white.queen |= currentBit;
+                    break;
+                case 'q':
+                    black.queen |= currentBit;
+                    break;
+                case 'K':
+                    white.king |= currentBit;
+                    break;
+                case 'k':
+                    black.king |= currentBit;
+                    break;
+                case '/':
+                default:
+                    currentBit = currentBit << 1; // comnpensate for the universal shift at the end of this else clause
+                    break;
+            }
+            currentBit = currentBit >> 1;
+        }
+
+
     }
 }
 
@@ -118,10 +189,9 @@ vector<char> GameState::GetOneRow(int rowNum) {
 
 }
 
-/**
- * Return the color of the player occupying a given square.
- * If no player has a piece on the given square, return PlayerColor::None.
- **/ 
+/************************************
+ * General use functions
+ ************************************/
 PlayerColor GameState::GetPlayerOnSquare(uint64_t square) {
 
     if(white.AmIOnSquare(square)) {
@@ -146,9 +216,19 @@ PieceType GameState::GetPieceOnSquare(uint64_t square) {
     return PieceType::Piece_None;
 }
 
+void GameState::ClearBoard() {
+    white.Clear();
+    black.Clear();
+
+    // TODO reset other properties?
+}
+
+/************************************
+ * To string + helper functions
+ ************************************/
 string GameState::ToString() {
 
-    string straightLine = "  ---------------------------------\n";
+    string straightLine = "  +---+---+---+---+---+---+---+---+\n";
     string boardString = straightLine;
 
     vector<vector<char>> array = GetArrayRepresentation();

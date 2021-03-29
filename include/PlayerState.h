@@ -1,7 +1,7 @@
 // player state defs
 
-//#include "./StartingValues.h"
 #include "./Piece.h"
+#include "./Fen.h"
 
 class PlayerState {
 

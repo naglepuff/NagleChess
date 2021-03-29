@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <string>
 #include <iostream>
 
 enum PieceType {
@@ -50,6 +51,8 @@ const std::vector<std::vector<char>> single_pawn = {
     {' ', ' ', ' ', 'P', ' ', ' ', ' ', ' '}, 
     {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
 };
+
+const std::string FEN_START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
 // Directions for bit shift right
 const int     NORTH = 8;
