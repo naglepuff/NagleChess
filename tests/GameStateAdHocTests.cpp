@@ -8,11 +8,21 @@
 
 using namespace std;
 
+#pragma region declarations
+
 bool RepositionFromArray_AdHocTest1();
 bool GetPlayerOnSquare_AdHocTest1();
 bool GetPieceOnSquare_AdHocTest1();
 bool GetPieceOnSquare_AdHocTest2();
+bool SetCastlingOptionsFromFen_AdHocTest1();
+bool SetCastlingOptionsFromFen_AdHocTest2();
+bool SetCastlingOptionsFromFen_AdHocTest3();
+bool RankAndFileToBitboard_AdHocTest1();
+bool RankAndFileToBitboard_AdHocTest2();
+bool RankAndFileToBitboard_AdHocTest3();
 vector<vector<char>> CreateSinglePieceBoard(PieceType type);
+
+#pragma endregion
 
 int main() {
 
@@ -22,6 +32,12 @@ int main() {
     cout << "Result for GetPlayerOnSquare_AdHocTest1: " << (GetPlayerOnSquare_AdHocTest1() ? p : f) << endl;
     cout << "Result for GetPieceOnSquare_AdHocTest1(): " << (GetPieceOnSquare_AdHocTest1() ? p : f) << endl;
     cout << "Result for GetPieceOnSquare_AdHocTest2(): " << (GetPieceOnSquare_AdHocTest2() ? p : f) << endl;
+    cout << "Result for SetCastlintOptionsFromFen_AdHocTest1(): " << (SetCastlingOptionsFromFen_AdHocTest1() ? p : f) << endl;
+    cout << "Result for SetCastlintOptionsFromFen_AdHocTest2(): " << (SetCastlingOptionsFromFen_AdHocTest2() ? p : f) << endl;
+    cout << "Result for SetCastlintOptionsFromFen_AdHocTest3(): " << (SetCastlingOptionsFromFen_AdHocTest3() ? p : f) << endl;
+    cout << "Result for RankAndFileToBitboard_AdHocTest1(): " << (RankAndFileToBitboard_AdHocTest1() ? p : f) << endl;
+    cout << "Result for RankAndFileToBitboard_AdHocTest2(): " << (RankAndFileToBitboard_AdHocTest2() ? p : f) << endl;
+    cout << "Result for RankAndFileToBitboard_AdHocTest3(): " << (RankAndFileToBitboard_AdHocTest3() ? p : f) << endl;
     return 0;
 }
 
@@ -54,6 +70,64 @@ bool GetPieceOnSquare_AdHocTest2() {
     state.RepositionFromArray(single_pawn);
     return state.GetPieceOnSquare((uint64_t) 1 << 44) == PieceType::Piece_None;
 }
+
+#pragma region SetCastlingOptionsFromFen tests
+bool SetCastlingOptionsFromFen_AdHocTest1() {
+
+    string castlingOptions = "KQkq";
+    GameState state = GameState();
+    state.SetCastlingOptionsFromFen(castlingOptions);
+    return state.white.canCastleKing && state.white.canCastleQueen && 
+        state.black.canCastleKing && state.black.canCastleQueen;
+}
+
+bool SetCastlingOptionsFromFen_AdHocTest2() {
+
+    string castlingOptions = "-";
+    GameState state = GameState();
+    state.SetCastlingOptionsFromFen(castlingOptions);
+    return !state.white.canCastleKing && !state.white.canCastleQueen && 
+        !state.black.canCastleKing && !state.black.canCastleQueen;
+}
+
+bool SetCastlingOptionsFromFen_AdHocTest3() {
+
+    string castlingOptions = "Kk";
+    GameState state = GameState();
+    state.SetCastlingOptionsFromFen(castlingOptions);
+    return state.white.canCastleKing && !state.white.canCastleQueen && 
+        state.black.canCastleKing && !state.black.canCastleQueen;
+}
+#pragma endregion 
+
+#pragma region RankAndFileToBitboard tests
+
+bool RankAndFileToBitboard_AdHocTest1() {
+
+    GameState state = GameState();
+    uint64_t result = state.RankAndFileToBitboard("e4");
+    uint64_t expected = ((uint64_t) 1 << 27);
+    return expected == result;
+}
+
+bool RankAndFileToBitboard_AdHocTest2() {
+    
+    GameState state = GameState();
+    uint64_t result = state.RankAndFileToBitboard("");
+    uint64_t expected = 0;
+    return expected == result;
+}
+
+bool RankAndFileToBitboard_AdHocTest3() {
+
+    GameState state = GameState();
+    uint64_t result = state.RankAndFileToBitboard("e44");
+    uint64_t expected = 0;
+    return expected == result;
+}
+
+
+#pragma endregion
 
 vector<vector<char>> CreateSinglePieceBoard(PieceType type) {
     char pieceChar;

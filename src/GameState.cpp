@@ -2,6 +2,20 @@
 using namespace std;
 // game state business logic
 
+/************************************
+ * Constructors
+ ************************************/
+GameState::GameState(Fen fen) {
+    white = PlayerState(PlayerColor::White);
+    black = PlayerState(PlayerColor::Black);
+    
+    BuildBitboardsFromFenString(fen.piecePlacement);
+    activeColor = (fen.activeColor == "w") ? PlayerColor::White : PlayerColor::Black;
+    SetCastlingOptionsFromFen(fen.castlingOptions);
+    SetEnPassantTargetFromFen(fen.enPassantSquare);
+    halfMoveClock = fen.halfmoveClock;
+    fullMoves = fen.fullMoves;
+}
 
 /*******************************************************************
  * Functions to convert between BB, vector, and FEN representations
@@ -130,6 +144,39 @@ void GameState::BuildBitboardsFromFenString(string pieceString) {
     }
 }
 
+void GameState::SetCastlingOptionsFromFen(string castlingOptions) {
+
+    white.canCastleKing = white.canCastleQueen = black.canCastleQueen = black.canCastleKing = false;
+    
+    for(int i = 0; i < castlingOptions.size(); i++) {
+
+        char currentChar = castlingOptions[i];
+
+        switch (currentChar)
+        {
+        case 'K':
+            white.canCastleKing = true;
+            break;
+        case 'Q':
+            white.canCastleQueen = true;
+            break;
+        case 'k':
+            black.canCastleKing = true;
+            break;
+        case 'q':
+            black.canCastleQueen = true;
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void GameState::SetEnPassantTargetFromFen(string targetSquare) {
+
+    enPassantTarget = RankAndFileToBitboard(targetSquare);
+}
+
 vector<vector<char>> GameState::GetArrayRepresentation() {
     vector<vector<char>> board;
 
@@ -223,6 +270,18 @@ void GameState::ClearBoard() {
     // TODO reset other properties?
 }
 
+uint64_t GameState::RankAndFileToBitboard(string square) {
+
+    if(square.size() != 2) {
+        return (uint64_t) 0;
+    }
+
+    int file = (int) square[0] - 'a'; // 0-7
+    int rank = (int) square[1] - '1'; // 0-7
+
+    int shiftAmount = (7 - file) + (8 * rank);
+    return (uint64_t) 1 << shiftAmount;
+}
 /************************************
  * To string + helper functions
  ************************************/

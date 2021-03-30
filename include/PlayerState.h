@@ -1,6 +1,5 @@
 // player state defs
 
-#include "./Piece.h"
 #include "./Fen.h"
 
 class PlayerState {
@@ -9,12 +8,15 @@ class PlayerState {
     // constructor and destructor
         PlayerState(bool isWhite) {
             color = isWhite ? PlayerColor::White : PlayerColor::Black;
-            pawns = isWhite ? white_pawns : black_pawns;
-            rooks = isWhite ? white_rooks : black_rooks;
-            knights = isWhite ? white_knights : black_knights;
-            bishops = isWhite ? white_bishops : black_bishops;
-            queen = isWhite ? white_queen : black_queen;
-            king = isWhite ? white_king : black_king;
+            pawns = isWhite ? WHITE_PAWNS : BLACK_PAWNS;
+            rooks = isWhite ? WHITE_ROOKS : BLACK_ROOKS;
+            knights = isWhite ? WHITE_KNIGHTS : BLACK_KNIGHTS;
+            bishops = isWhite ? WHITE_BISHOPS : BLACK_BISHOPS;
+            queen = isWhite ? WHITE_QUEEN : BLACK_QUEEN;
+            king = isWhite ? WHITE_KING : BLACK_KING;
+        }
+        PlayerState(PlayerColor playerColor) {
+            color = playerColor;
         }
         PlayerState() {
             pawns = rooks = bishops = queen = knights = king = 0;
@@ -29,7 +31,9 @@ class PlayerState {
     // gamestate information
         bool kingMoved;
         bool hasCastled;
-        bool check;
+        bool canCastleKing;
+        bool canCastleQueen;
+        bool inCheck;
         PlayerColor color;
     // functions
         bool CanCastle();
