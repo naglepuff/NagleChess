@@ -12,8 +12,12 @@ int main() {
     cout << state.ToString();
 
     Fen fen = Fen(FEN_START);
-    state.RepositionFromFen(fen);
-    cout << state.ToString();
+    GameState fenState = GameState(fen);
+    cout << fenState.ToString();
+
+    Fen fen2 = Fen("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
+    fenState.RepositionFromFen(fen2);
+    cout << fenState.ToString();
 
     return 0;
 }

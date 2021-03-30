@@ -53,7 +53,7 @@ const std::vector<std::vector<char>> single_pawn = {
 };
 
 // FEN info
-const std::string FEN_START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+const std::string FEN_START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 const std::string FEN_DELIMITER = " ";
 const std::string FEN_PLACEHOLDER = "-";
 

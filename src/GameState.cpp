@@ -6,15 +6,7 @@ using namespace std;
  * Constructors
  ************************************/
 GameState::GameState(Fen fen) {
-    white = PlayerState(PlayerColor::White);
-    black = PlayerState(PlayerColor::Black);
-    
-    BuildBitboardsFromFenString(fen.piecePlacement);
-    activeColor = (fen.activeColor == "w") ? PlayerColor::White : PlayerColor::Black;
-    SetCastlingOptionsFromFen(fen.castlingOptions);
-    SetEnPassantTargetFromFen(fen.enPassantSquare);
-    halfMoveClock = fen.halfmoveClock;
-    fullMoves = fen.fullMoves;
+    RepositionFromFen(fen);
 }
 
 /*******************************************************************
@@ -79,8 +71,15 @@ void GameState::RepositionFromArray(vector<vector<char>> board) {
 
 void GameState::RepositionFromFen(Fen fen) {
 
-    ClearBoard();
+    white = PlayerState(PlayerColor::White);
+    black = PlayerState(PlayerColor::Black);
+
     BuildBitboardsFromFenString(fen.piecePlacement);
+    activeColor = (fen.activeColor == "w") ? PlayerColor::White : PlayerColor::Black;
+    SetCastlingOptionsFromFen(fen.castlingOptions);
+    SetEnPassantTargetFromFen(fen.enPassantSquare);
+    halfMoveClock = fen.halfmoveClock;
+    fullMoves = fen.fullMoves;
 }
 
 void GameState::BuildBitboardsFromFenString(string pieceString) {

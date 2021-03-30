@@ -16,6 +16,7 @@ class PlayerState {
             king = isWhite ? WHITE_KING : BLACK_KING;
         }
         PlayerState(PlayerColor playerColor) {
+            Clear();
             color = playerColor;
         }
         PlayerState() {
