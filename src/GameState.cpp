@@ -8,7 +8,7 @@ using namespace std;
 GameState::GameState(Fen fen) {
     RepositionFromFen(fen);
 }
-
+#pragma region Functions related to converting/repositioning from Arrays, FEN and bitboards
 /*******************************************************************
  * Functions to convert between BB, vector, and FEN representations
  ******************************************************************/
@@ -235,6 +235,60 @@ vector<char> GameState::GetOneRow(int rowNum) {
 
 }
 
+Fen GameState::GetFenRepresentation() {
+
+    string pieces = GetFenPiecesString();
+    string castlingOptions = GetFenCastlingString();
+
+    return Fen(pieces, this->activeColor == PlayerColor::White ? "w" : "b", 
+        castlingOptions, BitboardToAlgebraicSquare(this->enPassantTarget), this->halfMoveClock, this->fullMoves);
+}
+
+string GameState::GetFenPiecesString() {
+
+    string pieces = "";
+    vector<vector<char>> arrayRep = this->GetArrayRepresentation();
+
+    int numEmptySquares = 0;
+
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+
+            char currentChar = arrayRep[i][j];
+            if(currentChar != ' ') {
+                if(numEmptySquares > 0) {
+                    pieces += to_string(numEmptySquares);
+                    numEmptySquares = 0;
+                }
+                pieces += currentChar;
+            } else {
+                numEmptySquares++;
+            }
+        }
+
+        if(numEmptySquares > 0) {
+            pieces += to_string(numEmptySquares);
+            numEmptySquares = 0;
+        }
+        if(i < 7) {
+            pieces += "/";
+        }
+    }
+    return pieces;
+}
+
+string GameState::GetFenCastlingString() {
+
+    string options = "";
+    if(this->white.canCastleKing) { options += "K"; }
+    if(this->white.canCastleQueen) { options += "Q"; }
+    if(this->black.canCastleKing) { options += "k"; }
+    if(this->black.canCastleQueen) { options += "q"; }
+
+    return options.size() > 0 ? options : FEN_PLACEHOLDER;
+}
+
+#pragma endregion
 /************************************
  * General use functions
  ************************************/
@@ -269,18 +323,45 @@ void GameState::ClearBoard() {
     // TODO reset other properties?
 }
 
+string GameState::BitboardToAlgebraicSquare(uint64_t square) {
+
+    if (square == 0) {
+        return "";
+    }
+
+    int counter = 0; // how many times has 1 been shifted? i.e. square = 1 << counter
+    while (square && square % 2 == 0) {
+        
+        square = square >> 1;
+        counter++; 
+    }
+
+    if(square > 1) {
+        // more than 1 bit set to 1
+        return "";
+    }
+
+    char file = 'h' - (counter % 8);
+    char rank = '0' + ((counter / 8) + 1);
+    string algebraicSquare = "";
+    algebraicSquare += file;
+    algebraicSquare += rank;
+    return algebraicSquare;
+}
+
 uint64_t GameState::RankAndFileToBitboard(string square) {
 
     if(square.size() != 2) {
         return (uint64_t) 0;
     }
-
+    
     int file = (int) square[0] - 'a'; // 0-7
     int rank = (int) square[1] - '1'; // 0-7
 
     int shiftAmount = (7 - file) + (8 * rank);
     return (uint64_t) 1 << shiftAmount;
 }
+
 /************************************
  * To string + helper functions
  ************************************/

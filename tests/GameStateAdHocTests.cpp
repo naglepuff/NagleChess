@@ -20,6 +20,10 @@ bool SetCastlingOptionsFromFen_AdHocTest3();
 bool RankAndFileToBitboard_AdHocTest1();
 bool RankAndFileToBitboard_AdHocTest2();
 bool RankAndFileToBitboard_AdHocTest3();
+bool BitboardToAlgebraicSquare_AdHocTest1();
+bool BitboardToAlgebraicSquare_AdHocTest2();
+bool BitboardToAlgebraicSquare_AdHocTest3();
+bool GetFenPiecesString_AdHocTest1();
 vector<vector<char>> CreateSinglePieceBoard(PieceType type);
 
 #pragma endregion
@@ -38,6 +42,10 @@ int main() {
     cout << "Result for RankAndFileToBitboard_AdHocTest1(): " << (RankAndFileToBitboard_AdHocTest1() ? p : f) << endl;
     cout << "Result for RankAndFileToBitboard_AdHocTest2(): " << (RankAndFileToBitboard_AdHocTest2() ? p : f) << endl;
     cout << "Result for RankAndFileToBitboard_AdHocTest3(): " << (RankAndFileToBitboard_AdHocTest3() ? p : f) << endl;
+    cout << "Result for BitboardToAlgebraicSquare_AdHocTest1(): " << (BitboardToAlgebraicSquare_AdHocTest1() ? p : f) << endl;
+    cout << "Result for BitboardToAlgebraicSquare_AdHocTest2(): " << (BitboardToAlgebraicSquare_AdHocTest2() ? p : f) << endl;
+    cout << "Result for BitboardToAlgebraicSquare_AdHocTest3(): " << (BitboardToAlgebraicSquare_AdHocTest3() ? p : f) << endl;
+    cout << "Result for GetFenPiecesString_AdHocTest1(): " << (GetFenPiecesString_AdHocTest1() ? p : f) << endl;
     return 0;
 }
 
@@ -128,6 +136,43 @@ bool RankAndFileToBitboard_AdHocTest3() {
 
 
 #pragma endregion
+
+#pragma region BitboardToAlgebraicSquare tests
+
+bool BitboardToAlgebraicSquare_AdHocTest1() {
+    
+    uint64_t e4 = (uint64_t) 1 << 27;
+    GameState state = GameState();
+    string result = state.BitboardToAlgebraicSquare(e4);
+    string expected = "e4";
+    return result == expected;
+}
+
+bool BitboardToAlgebraicSquare_AdHocTest2() {
+    GameState state = GameState();
+    string result = state.BitboardToAlgebraicSquare(H1);
+    string expected = "h1";
+    return result == expected;
+}
+
+bool BitboardToAlgebraicSquare_AdHocTest3() {
+    uint64_t square = (uint64_t) 45;
+    GameState state = GameState();
+    string result = state.BitboardToAlgebraicSquare(square);
+    string expected = "";
+    return result == expected;
+}
+
+#pragma endregion
+
+bool GetFenPiecesString_AdHocTest1() {
+
+    GameState state = GameState();
+    string result = state.GetFenPiecesString();
+    string expected = FEN_START.substr(0, FEN_START.find(' '));
+    cout << "E: " << expected << " Result: " << result << endl;
+    return result == expected;
+}
 
 vector<vector<char>> CreateSinglePieceBoard(PieceType type) {
     char pieceChar;

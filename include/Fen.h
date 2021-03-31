@@ -14,11 +14,11 @@ class Fen {
         };
         Fen(std::string pieces, std::string color, std::string castling, std::string enPassantTarget, int halfmoves, int fullMoveNum) {
             piecePlacement = pieces;
-            activeColor = color;
-            castlingOptions = castling;
-            enPassantSquare = enPassantTarget;
-            halfmoveClock = halfmoves;
-            fullMoves = fullMoveNum;
+            activeColor = color.size() == 1 ? color : FEN_PLACEHOLDER;
+            castlingOptions = castling.size() > 0 ? castling : FEN_PLACEHOLDER;
+            enPassantSquare = enPassantTarget.size() == 2 ? enPassantTarget : FEN_PLACEHOLDER;
+            halfmoveClock = halfmoves >= 0 ? halfmoves : 0;
+            fullMoves = fullMoveNum >= 1 ? fullMoves : 1;
         };
         std::string piecePlacement;
         std::string activeColor;
