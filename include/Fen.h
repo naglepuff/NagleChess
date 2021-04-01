@@ -27,7 +27,8 @@ class Fen {
         int halfmoveClock;
         int fullMoves;
         std::string ToString();
-        bool IsValidFenString(); // TODO
+        static bool IsValidFenString(std::string input);
+        static bool ValidPieceString(std::string pieceString);
     //private:
         void ParseString(std::string fenString);
 
