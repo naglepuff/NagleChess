@@ -52,4 +52,7 @@ class GameState {
         char GetRankOfSquare(uint64_t square);
         char GetFileOfSquare(uint64_t square);
         uint64_t RankAndFileToBitboard(std::string square);
+
+        // related to move legality and move generation
+        bool ActivePlayerInCheck();
 };

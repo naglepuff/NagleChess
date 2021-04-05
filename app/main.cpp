@@ -12,10 +12,6 @@ void PlayGame(GameState state);
 int main() {
 
     StartGame();
-
-    //cout << Fen::IsValidFenString(FEN_START) << endl;
-
-
     return 0;
 }
 
@@ -25,6 +21,7 @@ void StartGame() {
     int option;
     GameState state;
     string fenString;
+    
     cout << "\n***********************\n*WELCOME TO NAGLECHESS*\n***********************\n";
     cout << "MAIN MENU:" << endl;
     cout << "1. New Game" << endl;
@@ -38,7 +35,7 @@ void StartGame() {
             break;
         case 2:
             fenString = GetFenStringFromUser();
-            if(fenString == "q") {return;}
+            if(fenString == "0") {return;}
             state = GameState(fenString);
             break;
         default:
@@ -59,10 +56,10 @@ string GetFenStringFromUser() {
             cout << "The previously entered string was invalid." << endl;
         }
 
-        cout << "Enter the FEN for the starting position (q to quit): ";
+        cout << "Enter the FEN for the starting position (0 to quit): ";
         getline(cin, fenString);
 
-    } while(!Fen::IsValidFenString(fenString) && fenString != "q");
+    } while(!Fen::IsValidFenString(fenString) && fenString != "0");
     
     return fenString;
 }
