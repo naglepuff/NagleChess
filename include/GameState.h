@@ -1,6 +1,7 @@
 // game state defs
 
 #include "./PlayerState.h"
+#include "./Move.h"
 // #include <vector>
 // #include <string>
 
@@ -55,4 +56,7 @@ class GameState {
 
         // related to move legality and move generation
         bool ActivePlayerInCheck();
+        bool IsLegal(Move move);
+        void MakeMove(Move move);
+        Move UndoMove();
 };

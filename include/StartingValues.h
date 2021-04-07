@@ -23,6 +23,7 @@ enum PlayerColor {
     Player_None 
 };
 
+// starting positions
 const uint64_t WHITE_PAWNS = 0b0000000000000000000000000000000000000000000000001111111100000000;
 const uint64_t BLACK_PAWNS = 0b0000000011111111000000000000000000000000000000000000000000000000;
 
@@ -41,6 +42,7 @@ const uint64_t BLACK_QUEEN = 0b0001000000000000000000000000000000000000000000000
 const uint64_t WHITE_KING = 0b0000000000000000000000000000000000000000000000000000000000001000;
 const uint64_t BLACK_KING = 0b0000100000000000000000000000000000000000000000000000000000000000;
 
+
 const std::vector<std::vector<char>> single_pawn = {
     {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
     {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
@@ -57,17 +59,17 @@ const std::string FEN_START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQk
 const std::string FEN_DELIMITER = " ";
 const std::string FEN_PLACEHOLDER = "-";
 
-// Directions for bit shift right
+// Directions for bit shift right -- Directions should probably be an enum before its too late :)
 const int     NORTH = 8;
 const int      WEST = 1;
 const int NORTHEAST = 7;
 const int NORTHWEST = 9;
 
 // Directions for bit shift south
-const int     SOUTH = 8;
-const int      EAST = 1;
-const int SOUTHEAST = 9;
-const int SOUTHWEST = 7;
+const int     SOUTH = -8;
+const int      EAST = -1;
+const int SOUTHEAST = -9;
+const int SOUTHWEST = -7;
 
 // Edges of the board
 const uint64_t TOP =    0b1111111100000000000000000000000000000000000000000000000000000000;
@@ -84,3 +86,59 @@ const uint64_t H5 = 1 << 4;
 const uint64_t H6 = 1 << 5;
 const uint64_t H7 = 1 << 6;
 const uint64_t H8 = 1 << 7;
+
+// constant functions
+
+constexpr uint64_t NextSquare(uint64_t square, int direction) {
+
+    switch(direction) {
+        case 1: // west
+            if(square & LEFT) {
+                return 0;
+            }
+            break;
+        case 7: // northeast
+            if(square & RIGHT || square & TOP) {
+                return  0;
+            }
+            break;
+        case 8: // north
+            if(square & TOP) {
+                return 0;
+            }
+            break;
+        case 9:
+            if(square & TOP || square & LEFT) {
+                return 0;
+            }
+            break;
+        case -1: // east
+            if(square & RIGHT) {
+                return 0;
+            }
+            break;
+        case -7: // southwest
+            if(square & BOTTOM || square & LEFT) {
+                return 0;
+            }
+            break;
+        case -8:
+            if(square & BOTTOM) {
+                return 0;
+            }
+            break;
+        case -9:
+            if(square & BOTTOM || square & RIGHT) {
+                return 0;
+            }
+            break;
+        default:
+            return 0ULL;
+    }
+
+    if(direction > 0) {
+        return square << direction;
+    } else {
+        return square >> (direction * -1);
+    }
+}

@@ -42,6 +42,7 @@ class PlayerState {
         void PlacePiece(PieceType pieceType, int numShifts);
         void Clear();
         bool AmIOnSquare(uint64_t square);
+        uint64_t GetOccupiedSquares();
     // move generation
 
         

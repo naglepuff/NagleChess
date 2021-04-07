@@ -46,6 +46,9 @@ void PlayerState::PlacePiece(PieceType type, int numShifts) {
 }
 
 bool PlayerState::AmIOnSquare(uint64_t square) {
-    uint64_t squaresIAmOn = pawns + bishops + knights + rooks + queen + king;
-    return (square & squaresIAmOn) == square; // bitwise and
+    return (square & GetOccupiedSquares()) == square; // bitwise and
+}
+
+uint64_t PlayerState::GetOccupiedSquares() {
+    return pawns | bishops | knights | rooks | queen | king;
 }
