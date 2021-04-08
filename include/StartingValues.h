@@ -2,6 +2,9 @@
 
 // TODO use the correct numbers instead of placeholders
 
+#ifndef STARTINGVALUES_H
+#define STARTINGVALUES_H
+
 #include <cstdint>
 #include <vector>
 #include <string>
@@ -142,3 +145,5 @@ constexpr uint64_t NextSquare(uint64_t square, int direction) {
         return square >> (direction * -1);
     }
 }
+
+#endif /* STARTINGVALUES_H */
