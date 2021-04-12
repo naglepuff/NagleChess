@@ -1,5 +1,7 @@
 add_executable(GameStateAdHocTests GameStateAdHocTests.cpp)
 add_executable(FenAdHocTests FenAdHocTests.cpp)
+add_executable(StartingValuesAdHocTests StartingValuesAdHocTests.cpp)
 
 target_link_libraries(GameStateAdHocTests LINK_PUBLIC GameState)
 target_link_libraries(FenAdHocTests LINK_PUBLIC GameState)
+target_link_libraries(StartingValuesAdHocTests LINK_PUBLIC GameState)
