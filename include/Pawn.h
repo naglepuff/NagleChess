@@ -12,5 +12,3 @@ class Pawn {
     static uint64_t PotentialPawnAttackSquares(uint64_t position, PlayerColor color);
     static std::vector<Move> GenerateSinglePawnMoves(GameState& state, uint64_t onePawn, PlayerState& activePlayer, PlayerState& inactivePlayer); 
 };
-const std::vector<int> Pawn::CAPTURE_DIRS_B ({SOUTHEAST, SOUTHWEST});
-const std::vector<int> Pawn::CAPTURE_DIRS_W ({NORTHEAST, NORTHWEST});

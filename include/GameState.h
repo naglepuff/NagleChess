@@ -21,6 +21,7 @@ class GameState {
             black = PlayerState(false);
         };
         GameState(Fen fen);
+        
         #pragma region properties
         GamePhase phase;
         PlayerState white;
@@ -29,7 +30,9 @@ class GameState {
         int halfMoveClock;
         int fullMoves;
         uint64_t enPassantTarget;
+        std::stack<Move> moveHistory;
         #pragma endregion
+       
         // methods
         std::vector<std::vector<char>> GetArrayRepresentation();
         void RepositionFromArray(std::vector<std::vector<char>> board);
@@ -54,8 +57,9 @@ class GameState {
         char GetFileOfSquare(uint64_t square);
         uint64_t RankAndFileToBitboard(std::string square);
 
-        // related to move legality and move generation
+        // related to move legality and move generation -- maybe this stuff should be its own class? like GamePlayer or something?
         bool ActivePlayerInCheck();
+        bool InactivePlayerInCheck();
         bool IsLegal(Move move);
         void MakeMove(Move move);
         Move UndoMove();

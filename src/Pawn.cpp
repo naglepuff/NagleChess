@@ -2,6 +2,9 @@
 
 using namespace std;
 
+const std::vector<int> Pawn::CAPTURE_DIRS_B ({SOUTHEAST, SOUTHWEST});
+const std::vector<int> Pawn::CAPTURE_DIRS_W ({NORTHEAST, NORTHWEST});
+
 vector<Move> Pawn::GeneratePawnMoves(GameState& state) {
 
     PlayerState activePlayer = state.white;
@@ -16,13 +19,11 @@ vector<Move> Pawn::GeneratePawnMoves(GameState& state) {
     for(int i = 0; i < 64; i++) {
         uint64_t currentSquare = (uint64_t) 1 << i;
         
-        if(activePlayer.pawns & currentSquare > 1) {
-
+        if((activePlayer.pawns & currentSquare) > 1) {
             vector<Move> singlePawnMoves = GenerateSinglePawnMoves(state, currentSquare, activePlayer, inactivePlayer);
             pawnMoves.insert(pawnMoves.end(), singlePawnMoves.begin(), singlePawnMoves.end());
         }
     }
-
     return pawnMoves;
 }
 
@@ -35,18 +36,21 @@ vector<Move> Pawn::GenerateSinglePawnMoves(GameState& state, uint64_t onePawn, P
     uint64_t ownSquares = activePlayer.GetOccupiedSquares();
     uint64_t occupiedSquares = opponentSquares | ownSquares;
     int moveDirection = (activePlayer.color == PlayerColor::White) ? NORTH : SOUTH;
+    
     uint64_t startingPosition = (activePlayer.color == PlayerColor::White) ? WHITE_PAWNS : BLACK_PAWNS;
-    int maxDistance = (onePawn & startingPosition > 0) ? 2 : 1;
+    int maxDistance = ((onePawn & startingPosition) > 0) ? 2 : 1;
     
     // generate non-capture pawn moves
     int numSquaresMoved = 0;
     uint64_t currentSquare = onePawn; // copy onePawn into a starting position of sorts
     uint64_t nextSquare = NextSquare(currentSquare, moveDirection);
     while(numSquaresMoved < maxDistance && !(nextSquare & occupiedSquares)) {
-
         // add the move to the  list
         Move move = Move(Pawn::Type, activePlayer.color, onePawn, nextSquare, false);
-        singlePawnMoves.push_back(move);
+        if(state.IsLegal(move)) {
+            singlePawnMoves.push_back(move);
+        }
+        
         
         currentSquare = nextSquare;
         nextSquare = NextSquare(currentSquare, moveDirection);
@@ -59,16 +63,16 @@ vector<Move> Pawn::GenerateSinglePawnMoves(GameState& state, uint64_t onePawn, P
 
         nextSquare = NextSquare(onePawn, dir);
         if(nextSquare > 0) {
-
+            
+            Move move;
             if((nextSquare & opponentSquares)) {
-
-                Move move = Move(Pawn::Type, activePlayer.color, onePawn, nextSquare, true);
-                singlePawnMoves.push_back(move);
+                move = Move(Pawn::Type, activePlayer.color, onePawn, nextSquare, true);
             } else if(nextSquare == state.enPassantTarget) {
-
-                Move move = Move(MoveType::EnPassantCapture, activePlayer.color, onePawn, nextSquare);
-                singlePawnMoves.push_back(move);
+                move = Move(MoveType::EnPassantCapture, activePlayer.color, onePawn, nextSquare);
             }
+            if(move.type != MoveType::MoveType_None && state.IsLegal(move)) {
+                singlePawnMoves.push_back(move);
+            } 
         }
     }
 

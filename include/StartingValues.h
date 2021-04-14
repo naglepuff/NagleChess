@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <stack>
 
 enum PieceType {
     Pawn,

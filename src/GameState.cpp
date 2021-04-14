@@ -390,3 +390,43 @@ string GameState::GetRowString(vector<char> row) {
     }
     return rowString + "\n";
 }
+
+/************************************
+ * Game playing functions (stubs as of 4/14)
+ ************************************/
+void GameState::MakeMove(Move move) {
+    // Todo
+    // 1. actually make the move
+    moveHistory.push(move);
+    return;
+}
+
+Move GameState::UndoMove() {
+
+    // undo the previous move and return it
+    // TODO 
+    // 1. Handle empty moveHistory
+    // 2. actually undo the move
+    Move lastMove = moveHistory.top();
+    moveHistory.pop();
+    return lastMove;
+}
+
+bool GameState::InactivePlayerInCheck() {
+
+    // TODO: implement
+    return true;
+}
+
+bool GameState::ActivePlayerInCheck() {
+    //TODO: implements
+    return true;
+}
+
+bool GameState::IsLegal(Move move) {
+
+    MakeMove(move);
+    bool legal = InactivePlayerInCheck();
+    UndoMove();
+    return legal;
+}

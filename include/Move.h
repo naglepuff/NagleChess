@@ -7,7 +7,8 @@ enum MoveType {
     CastleKing,
     CastleQueen,
     Promotion,
-    EnPassantCapture
+    EnPassantCapture,
+    MoveType_None
 };
 
 
@@ -15,7 +16,7 @@ class Move {
     public:
         // default constructor
         Move() {
-
+            type = MoveType::MoveType_None;
         };
         Move(PieceType pieceType, PlayerColor playerColor, uint64_t start, uint64_t end, bool isCapture);
         // specific type of move, used for castling
