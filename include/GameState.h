@@ -52,10 +52,10 @@ class GameState {
         PieceType GetPieceOnSquare(uint64_t square);
         std::string GetRowString(std::vector<char> row);
 
-        std::string BitboardToAlgebraicSquare(uint64_t square);
+        std::string BitboardToAlgebraicSquare(uint64_t square); // should be static
         char GetRankOfSquare(uint64_t square);
         char GetFileOfSquare(uint64_t square);
-        uint64_t RankAndFileToBitboard(std::string square);
+        uint64_t RankAndFileToBitboard(std::string square);     // should be static
 
         // related to move legality and move generation -- maybe this stuff should be its own class? like GamePlayer or something?
         bool ActivePlayerInCheck();

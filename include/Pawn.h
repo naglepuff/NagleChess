@@ -11,4 +11,5 @@ class Pawn {
     static uint64_t PotentialPawnMoveSquares(uint64_t position, PlayerColor color);    // could be useful if we could generate some "Position" object...
     static uint64_t PotentialPawnAttackSquares(uint64_t position, PlayerColor color);
     static std::vector<Move> GenerateSinglePawnMoves(GameState& state, uint64_t onePawn, PlayerState& activePlayer, PlayerState& inactivePlayer); 
+    static void AddPromotionMoves(std::vector<Move>& singlePawnMoves, uint64_t start, uint64_t end, PlayerColor activeColor, bool isCapture);
 };
