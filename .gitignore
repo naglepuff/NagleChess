@@ -4,3 +4,5 @@
 Notes.txt
 NagleChess
 CMakeCache.txt
+/CMakeFiles/*
+CMakeFiles
