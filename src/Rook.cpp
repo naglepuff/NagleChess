@@ -2,7 +2,7 @@
  * Move generation code 4 rooks based on given game state. 
  * Rooks can move in the 4 cardinal directions.
  * In this engine, rooks are moved by KINGS when they castle. 
- * This module does not care about castling.
+ * This module does not care about castling when generating moves.
 **/
 
 #include "../include/Rook.h"
