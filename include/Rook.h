@@ -1,4 +1,5 @@
 #include "./GameState.h"
+#include "./PieceHelper.h"
 
 class Rook {
 

@@ -1,5 +1,8 @@
 // game state defs
 
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
+
 #include "./PlayerState.h"
 #include "./Move.h"
 // #include <vector>
@@ -64,3 +67,5 @@ class GameState {
         void MakeMove(Move move);
         Move UndoMove();
 };
+
+#endif /* GAMESTATE_H */

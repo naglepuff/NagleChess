@@ -36,31 +36,5 @@ vector<Move> Rook::GenerateRookMoves(GameState& state) {
 
 vector<Move> Rook::GenerateSingleRookMoves(GameState& state, uint64_t oneRook, PlayerState& activePlayer, PlayerState& inactivePlayer) {
 
-    vector<Move> singleRookMoves;
-    uint64_t opponentSquares = inactivePlayer.GetOccupiedSquares();
-    uint64_t ownSquares = activePlayer.GetOccupiedSquares();
-    uint64_t occupiedSquares = ownSquares | opponentSquares;
-
-    for(int dir: DIRS) {
-        
-        uint64_t currentSquare = oneRook;
-        uint64_t nextSquare = NextSquare(currentSquare, dir);
-
-        while(nextSquare > 0 && !(nextSquare & occupiedSquares)) {
-
-            // in here are reversible moves.
-            Move move = Move(PieceType::Rook, activePlayer.color, oneRook, nextSquare, false);
-            if(state.IsLegal(move)) { singleRookMoves.push_back(move);}
-
-            currentSquare = nextSquare;
-            nextSquare = NextSquare(currentSquare, dir);
-        }
-
-        // next square might have an enemy piece that we can capture!
-        if((nextSquare & opponentSquares)) {
-            Move move = Move(PieceType::Rook, activePlayer.color, oneRook, nextSquare, true);
-            if(state.IsLegal(move)){singleRookMoves.push_back(move);}
-        }
-    }
-    return singleRookMoves;
+    return PieceHelper::GenerateMoves(state, oneRook, activePlayer, inactivePlayer, DIRS, Type);
 }
