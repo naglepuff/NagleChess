@@ -1,4 +1,5 @@
 #include "../include/PieceHelper.h"
+#include <iostream>
 
 using namespace std;
 
@@ -11,7 +12,6 @@ vector<Move> PieceHelper::GenerateMoves(GameState& state, uint64_t pieceSquare, 
     uint64_t occupiedSquares = opponentSquares | ownSquares;
 
     for(int dir: dirs) {
-
         uint64_t currentSquare = pieceSquare;
         uint64_t nextSquare = NextSquare(currentSquare, dir);
 

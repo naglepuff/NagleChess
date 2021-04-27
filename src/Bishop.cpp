@@ -24,7 +24,7 @@ vector<Move> Bishop::GenerateBishopMoves(GameState& state) {
 
         uint64_t currentSquare = (uint64_t) 1 << i;
         
-        if((activePlayer.bishops & currentSquare) > 1) {
+        if((activePlayer.bishops & currentSquare) >= 1) {
             vector<Move> singleBishopMoves = GenerateSingleBishopMoves(state, currentSquare, activePlayer, inactivePlayer);
             bishopMoves.insert(bishopMoves.end(), singleBishopMoves.begin(), singleBishopMoves.end());
         }

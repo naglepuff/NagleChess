@@ -19,7 +19,7 @@ vector<Move> Pawn::GeneratePawnMoves(GameState& state) {
     for(int i = 0; i < 64; i++) {
         uint64_t currentSquare = (uint64_t) 1 << i;
         
-        if((activePlayer.pawns & currentSquare) > 1) {
+        if((activePlayer.pawns & currentSquare) >= 1) {
             vector<Move> singlePawnMoves = GenerateSinglePawnMoves(state, currentSquare, activePlayer, inactivePlayer);
             pawnMoves.insert(pawnMoves.end(), singlePawnMoves.begin(), singlePawnMoves.end());
         }

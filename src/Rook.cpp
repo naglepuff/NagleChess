@@ -26,7 +26,7 @@ vector<Move> Rook::GenerateRookMoves(GameState& state) {
 
         uint64_t currentSquare = (uint64_t) 1 << i;
 
-        if((activePlayer.rooks & currentSquare) > 1) {
+        if((activePlayer.rooks & currentSquare) >= 1) {
             vector<Move> singleRookMoves = GenerateSingleRookMoves(state, currentSquare, activePlayer, inactivePlayer);
             rookMoves.insert(rookMoves.end(), singleRookMoves.begin(), singleRookMoves.end());
         }
