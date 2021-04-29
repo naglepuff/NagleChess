@@ -10,6 +10,8 @@ class PieceHelper {
         const std::vector<int> dirs, PieceType pieceType);
     static void GenerateMovesMaxDistance();
     static void AddMove(GameState& state, std::vector<Move>& moves, Move move);
+
+    // find active player and inactive player? pass by reference?
 };
 
 #endif /** PIECEHELPER_H **/
