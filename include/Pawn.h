@@ -12,4 +12,6 @@ class Pawn {
     static uint64_t PotentialPawnAttackSquares(uint64_t position, PlayerColor color);
     static std::vector<Move> GenerateSinglePawnMoves(GameState& state, uint64_t onePawn, PlayerState& activePlayer, PlayerState& inactivePlayer); 
     static void AddPromotionMoves(std::vector<Move>& singlePawnMoves, uint64_t start, uint64_t end, PlayerColor activeColor, bool isCapture);
+
+    // static uint64_t GenerateThreatenedSquares(GameState& state)
 };
