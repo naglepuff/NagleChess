@@ -2,7 +2,7 @@
 #include "PieceHelper.h"
 
 class King {
-
+    public:
     const static PieceType Type = PieceType::King;
     const static std::vector<int> DIRS;
 
