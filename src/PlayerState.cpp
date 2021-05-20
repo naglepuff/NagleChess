@@ -49,6 +49,15 @@ bool PlayerState::AmIOnSquare(uint64_t square) {
     return (square & GetOccupiedSquares()) == square; // bitwise and
 }
 
+bool PlayerState::PiecePlacementIsValid() {
+
+    uint64_t piecePlacementBitwiseOr = pawns | bishops | knights | rooks | queen | king;
+    uint64_t piecePlacementBitwiseXor = GetOccupiedSquares();
+    
+    // if xor =/= or, then this player has two pieces on the same square
+    return (piecePlacementBitwiseOr == piecePlacementBitwiseXor);
+}
+
 uint64_t PlayerState::GetOccupiedSquares() {
-    return pawns | bishops | knights | rooks | queen | king;
+    return pawns ^ bishops ^ knights ^ rooks ^ queen ^ king;
 }

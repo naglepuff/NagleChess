@@ -2,7 +2,6 @@
 using namespace std;
 
 void Fen::ParseString(string fenString) {
-
     // for now, assume valid FEN string. we should probably write a funtion to check validity at some point
 
     int position = fenString.find(FEN_DELIMITER);

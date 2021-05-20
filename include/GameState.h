@@ -66,6 +66,9 @@ class GameState {
         bool IsLegal(Move move);
         void MakeMove(Move move);
         Move UndoMove();
+
+        // related to validation
+        bool PiecePlacementIsValid();
 };
 
 #endif /* GAMESTATE_H */

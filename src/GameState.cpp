@@ -430,3 +430,18 @@ bool GameState::IsLegal(Move move) {
     UndoMove();
     return legal;
 }
+
+/************************************
+ * Validation and state checking
+ ************************************/
+
+bool GameState::PiecePlacementIsValid() {
+
+    uint64_t whitePieces = white.GetOccupiedSquares();
+    uint64_t blackPieces = black.GetOccupiedSquares();
+
+
+    // if xor =/= or, then black and white both have a piece on the same square
+    return white.PiecePlacementIsValid() && black.PiecePlacementIsValid() && ((whitePieces ^ blackPieces) == (whitePieces | blackPieces));
+
+}
