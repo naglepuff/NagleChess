@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<Move> PieceHelper::GenerateMoves(GameState& state, uint64_t pieceSquare, PlayerState& activePlayer, PlayerState& inactivePlayer, 
-        const std::vector<int> dirs, PieceType pieceType) {
+        const std::vector<int>& dirs, PieceType pieceType) {
 
     vector<Move> pieceMoves;
     uint64_t opponentSquares = inactivePlayer.GetOccupiedSquares();
@@ -42,4 +42,26 @@ void PieceHelper::AddMove(GameState& state, vector<Move>& moves, Move move) {
 
         moves.push_back(move);
     }
+}
+
+vector<int> PieceHelper::GetPerpendicularDirections(int dir) {
+    /**
+     * INCOMPLETE
+     * How should this function handle diagonals?
+     **/
+    vector<int> perpDirs;
+    switch (dir) {
+        case NORTH:
+        case SOUTH:
+            perpDirs = {EAST, WEST};
+            break;
+        case EAST:
+        case WEST:
+            perpDirs = {NORTH, SOUTH};
+            break;
+        default:
+            perpDirs = {};
+            break;
+    }
+    return perpDirs;
 }
